@@ -1,4 +1,0 @@
-[submodule "tools/nitro-converter"]
-	path = tools/nitro-converter
-	url = https://github.com/billsonnn/nitro-converter.git
-	branch = habbo-room-content
