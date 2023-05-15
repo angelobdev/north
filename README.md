@@ -9,6 +9,14 @@ North is a simple way to configure you own retro server. It uses docker so that 
 
 This project has been inspired by [nitro-docker](https://github.com/Gurkengewuerz/nitro-docker)
 
+It provides a collection of services to run Nitro React with ease:
+- Assets (nginx, 8080)
+- Database (mariadb, 3306)
+- Arcturus Emulator (java, 2096)
+- Nitro React (node, 5173)
+
+This project is not inteded to be ready for production.
+
 ---
 
 ## How do I run it?
