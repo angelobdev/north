@@ -1,0 +1,4 @@
+assets/public/*
+services/emulator/*
+services/database/*
+services/nitro/*

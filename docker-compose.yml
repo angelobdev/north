@@ -1,0 +1,51 @@
+version: "3.7"
+
+services:
+  assets:
+    image: nginx
+    volumes:
+      - ./services/assets/config:/etc/nginx/conf.d
+      - ./services/assets/public/:/usr/share/nginx/html/
+    ports:
+      - "8080:80"
+    networks: [north]
+
+  database:
+    image: mariadb:10
+    command: --default-authentication-plugin=mysql_native_password
+    env_file:
+      - .env
+    ports:
+      - 3306:3306
+    volumes:
+      - ./services/database/data:/var/lib/mysql
+      - ./services/database/conf.d:/etc/mysql/conf.d
+      - ./services/database/dumps:/docker-entrypoint-initdb.d
+    restart: unless-stopped
+    networks: [north]
+
+  emulator:
+    build:
+      context: services/emulator
+    env_file:
+      - .env
+    ports:
+      - "2096:2096"
+    volumes:
+      - ./services/emulator/plugins:/plugins
+    depends_on:
+      - database
+    restart: unless-stopped
+    networks: [north]
+
+  nitro:
+    build:
+      context: services/nitro
+    env_file:
+      - .env
+    ports:
+      - "5173:5173"
+    networks: [north]
+
+networks:
+  north:
