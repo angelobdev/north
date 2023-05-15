@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# SETUP
+SUDO=""
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+    SUDO="sudo"
+fi
+
+CURRENT_FOLDER=$(pwd)
+
 # Variables
 ASSETS_DIRECTORY="services/assets/public"
 
@@ -33,6 +41,8 @@ then
     echoc ${Red} 'Sorry but it seems NodeJS is not installed! Please install it and re-run this script...'
     exit
 fi
+
+npm i -g yarn
 
 # Docker
 if ! command -v docker &> /dev/null
@@ -82,13 +92,13 @@ fi
 
 # Starting assets service
 echoc ${Red} 'Starting assets service on port 8080'
-docker compose up assets -d --build
+$SUDO docker compose up assets -d --build
 
 echoc ${Green} Done!
 
 # ***** Creating database service *****
 echoc ${Red} 'Starting database service on port 3306'
-docker compose up database -d --build
+$SUDO docker compose up database -d --build
 echoc ${Green} Done!
 
 # ***** Cloning arcturus emulator and plugins ******
@@ -113,7 +123,7 @@ else
 fi
 
 echoc ${Red} 'Starting emulator service on port 2096 (WS)'
-docker compose up emulator -d --build
+$SUDO docker compose up emulator -d --build
 
 echoc ${Green} Done!
 
@@ -151,18 +161,18 @@ then
     echoc ${Purple} 'Updating to latest production... (it might take a while)'
     rm -rf services/assets/public/swf/gordon/PRODUCTION
 
-    habbo-downloader --output ./services/assets/public/swf --domain $locale --command badgeparts
-    habbo-downloader --output ./services/assets/public/swf --domain $locale --command badges
-    habbo-downloader --output ./services/assets/public/swf --domain $locale --command clothes
-    habbo-downloader --output ./services/assets/public/swf --domain $locale --command effects
-    habbo-downloader --output ./services/assets/public/swf --domain $locale --command furnitures
-    habbo-downloader --output ./services/assets/public/swf --domain $locale --command gamedata
-    habbo-downloader --output ./services/assets/public/swf --domain $locale --command gordon
-    habbo-downloader --output ./services/assets/public/swf --domain $locale --command hotelview
-    habbo-downloader --output ./services/assets/public/swf --domain $locale --command icons
-    habbo-downloader --output ./services/assets/public/swf --domain $locale --command mp3
-    habbo-downloader --output ./services/assets/public/swf --domain $locale --command pets
-    habbo-downloader --output ./services/assets/public/swf --domain $locale --command promo
+    habbo-downloader --output ${CURRENT_FOLDER}/services/assets/public/swf --domain $locale --command badgeparts
+    habbo-downloader --output ${CURRENT_FOLDER}/services/assets/public/swf --domain $locale --command badges
+    habbo-downloader --output ${CURRENT_FOLDER}/services/assets/public/swf --domain $locale --command clothes
+    habbo-downloader --output ${CURRENT_FOLDER}/services/assets/public/swf --domain $locale --command effects
+    habbo-downloader --output ${CURRENT_FOLDER}/services/assets/public/swf --domain $locale --command furnitures
+    habbo-downloader --output ${CURRENT_FOLDER}/services/assets/public/swf --domain $locale --command gamedata
+    habbo-downloader --output ${CURRENT_FOLDER}/services/assets/public/swf --domain $locale --command gordon
+    habbo-downloader --output ${CURRENT_FOLDER}/services/assets/public/swf --domain $locale --command hotelview
+    habbo-downloader --output ${CURRENT_FOLDER}/services/assets/public/swf --domain $locale --command icons
+    habbo-downloader --output ${CURRENT_FOLDER}/services/assets/public/swf --domain $locale --command mp3
+    habbo-downloader --output ${CURRENT_FOLDER}/services/assets/public/swf --domain $locale --command pets
+    habbo-downloader --output ${CURRENT_FOLDER}/services/assets/public/swf --domain $locale --command promo
 
     cp -n services/assets/public/swf/dcr/hof_furni/icons/* services/assets/public/swf/dcr/hof_furni
     mv services/assets/public/swf/gordon/PRODUCTION* services/assets/public/swf/gordon/PRODUCTION
@@ -170,6 +180,8 @@ then
     echoc ${Green} Done!
 
     # ***** Converting swf assets into .nitro (nitro-converter) *****
+    $SUDO docker compose up assets -d --build
+
     echoc ${Purple} 'Configuring nitro-converter...'
     cp data/configurations/configuration.json tools/nitro-converter/configuration.json
     echoc ${Green} Done!
@@ -218,7 +230,7 @@ cp -R data/configurations/vite.config.js services/nitro/vite.config.js
 cp -R data/configurations/renderer-config.json services/nitro/public/renderer-config.json
 cp -R data/configurations/ui-config.json services/nitro/public/ui-config.json
 
-docker compose up nitro -d --build
+$SUDO docker compose up nitro -d --build
 
 # ***** Cleaning up *****
 echoc ${Purple} 'Cleaning up...'
@@ -228,3 +240,8 @@ rm -rf services/emulator/sqlupdates
 echoc ${Green} Done!
 
 # ***** RUNNING EVERYTHING *****
+
+
+### TODOs ###
+# Fix emulator promptEnterKey()
+# Add auth_ticket sql

@@ -2,3 +2,4 @@ services/database
 services/emulator
 services/nitro
 services/assets/public
+data/SQLs/catalog_items.sql

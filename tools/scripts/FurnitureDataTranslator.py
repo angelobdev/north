@@ -15,7 +15,7 @@ def normalize_classnames(classname):
 
 # Create a dictionary mapping classname to name and description
 furniture_dict = {}
-with open('services/assets/public/swf/gamedata/furnidata.json', 'r', encoding='utf-8') as f:
+with open('./services/assets/public/swf/gamedata/furnidata.json', 'r', encoding='utf-8') as f:
     furniture_data = json.load(f)
     for todo_type in todo_types:
         for furnitype in furniture_data[todo_type]["furnitype"]:
@@ -26,7 +26,7 @@ with open('services/assets/public/swf/gamedata/furnidata.json', 'r', encoding='u
                 "specialtype": furnitype['specialtype'],
             }
 
-with open('services/assets/public/swf/gamedata/productdata.json', 'r', encoding='utf-8') as f:
+with open('./services/assets/public/swf/gamedata/productdata.json', 'r', encoding='utf-8') as f:
     product_data = json.load(f)
     for product in product_data["productdata"]["product"]:
         classname = normalize_classnames(product['code'])
@@ -37,7 +37,7 @@ with open('services/assets/public/swf/gamedata/productdata.json', 'r', encoding=
 
 orig_furniture_data = {}
 # Load the JSON file
-with open('services/assets/public/gamedata/FurnitureData.json', 'r', encoding='utf-8') as f:
+with open('./services/assets/public/gamedata/FurnitureData.json', 'r', encoding='utf-8') as f:
     orig_furniture_data = json.load(f)
 
 # Replace the name and description values with values from the XML file
@@ -53,7 +53,7 @@ for todo_type in todo_types:
 
 orig_product_dict = {}
 # Load the JSON file
-with open('services/assets/public/gamedata/ProductData.json', 'r', encoding='utf-8') as f:
+with open('./services/assets/public/gamedata/ProductData.json', 'r', encoding='utf-8') as f:
     orig_product_dict = json.load(f)
 
 for product in orig_product_dict["productdata"]["product"]:
@@ -64,8 +64,8 @@ for product in orig_product_dict["productdata"]["product"]:
 
 
 # Save the updated JSON file
-with open('services/assets/public/gamedata/FurnitureData.json', 'w') as f:
+with open('./services/assets/public/gamedata/FurnitureData.json', 'w') as f:
     json.dump(orig_furniture_data, f, separators=(',', ':'))
 
-with open('services/assets/public/gamedata/ProductData.json', 'w') as f:
+with open('./services/assets/public/gamedata/ProductData.json', 'w') as f:
     json.dump(orig_product_dict, f, separators=(',', ':'))
