@@ -1,4 +1,4 @@
-assets/public/*
-services/emulator/*
-services/database/*
-services/nitro/*
+services/database
+services/emulator
+services/nitro
+services/assets/public
