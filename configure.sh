@@ -244,4 +244,3 @@ echoc ${Green} Done!
 
 ### TODOs ###
 # Fix emulator promptEnterKey()
-# Add auth_ticket sql

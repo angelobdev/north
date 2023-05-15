@@ -31199,7 +31199,7 @@ CREATE TABLE `users`  (
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES (1, 'Systemaccount', 'SYSTEMACC', '', 'mail@hoster.de', '1', 1, 1, 1594680183, 1, '', 'he-3884-92-93.ch-4004-92.hr-3251-39-49.hd-3100-5.lg-3078-110', 'F', 1, 0, 0, 0, '0', '', '127.0.0.1', '127.0.0.1', 'dde7b67386d37aff60022250b84efbff5b1fd2c4ae5c8609049470a1c0feffc4', 0, NULL, NULL, NULL);
+INSERT INTO `users` VALUES (1, 'Systemaccount', 'SYSTEMACC', '', 'mail@hoster.de', '1', 1, 1, 1594680183, 1, '', 'he-3884-92-93.ch-4004-92.hr-3251-39-49.hd-3100-5.lg-3078-110', 'F', 1, 0, 0, 0, '0', '123', '127.0.0.1', '127.0.0.1', 'dde7b67386d37aff60022250b84efbff5b1fd2c4ae5c8609049470a1c0feffc4', 0, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for users_achievements
